@@ -10,6 +10,7 @@ URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
 BuildRequires:	atlas-devel
 BuildRequires:	blas-devel
+BuildRequires:	bzip2-devel
 BuildRequires:	coin-or-CoinUtils-devel
 BuildRequires:	coin-or-Osi-devel
 BuildRequires:	doxygen
@@ -18,6 +19,7 @@ BuildRequires:	graphviz
 BuildRequires:	lapack-devel
 BuildRequires:	pkgconfig
 BuildRequires:	readline-devel
+BuildRequires: 	zlib-devel
 
 # Properly handle DESTDIR
 Patch0:		%{name}-pkgconfig.patch
