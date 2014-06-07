@@ -4,7 +4,7 @@ Name:		coin-or-%{module}
 Group:		Applications/Engineering
 Summary:	Coin-or linear programming
 Version:	1.15.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	EPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -93,6 +93,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc %{_docdir}/%{name}/html
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.15.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon Nov  4 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.15.3-3
 - Correct source url path (#894587#c7).
 - Add coin-or-CoinUtils-devel requires to the devel package (#894587#c7).
