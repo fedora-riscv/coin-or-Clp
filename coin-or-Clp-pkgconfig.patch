@@ -1,7 +1,7 @@
-diff -up Clp-1.15.3/Makefile.in.orig Clp-1.15.3/Makefile.in
---- Clp-1.15.3/Makefile.in.orig	2013-11-01 13:41:51.932646093 -0200
-+++ Clp-1.15.3/Makefile.in	2013-11-01 13:42:12.116646866 -0200
-@@ -903,7 +903,7 @@ uninstall-local: uninstall-doc
+diff -up Clp-1.15.7/Makefile.in.orig Clp-1.15.7/Makefile.in
+--- Clp-1.15.7/Makefile.in.orig	2014-07-16 12:34:46.203191658 -0300
++++ Clp-1.15.7/Makefile.in	2014-07-16 12:34:57.902192106 -0300
+@@ -908,7 +908,7 @@ uninstall-local: uninstall-doc
  
  install-data-hook:
  	@$(mkdir_p) "$(addlibsdir)"
