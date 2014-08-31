@@ -4,7 +4,7 @@ Name:		coin-or-%{module}
 Group:		Applications/Engineering
 Summary:	Coin-or linear programming
 Version:	1.15.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	EPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -93,6 +93,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc %{_docdir}/%{name}/html
 
 %changelog
+* Sun Aug 31 2014 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.15.10-2
+- Rebuild to ensure packages are built in proper order.
+
 * Sat Aug 30 2014 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.15.10-1
 - Update to latest upstream release (#1133195#c2).
 
