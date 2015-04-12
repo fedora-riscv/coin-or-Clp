@@ -1,7 +1,7 @@
-diff -up Clp-1.15.7/Makefile.in.orig Clp-1.15.7/Makefile.in
---- Clp-1.15.7/Makefile.in.orig	2014-07-16 12:35:34.683193514 -0300
-+++ Clp-1.15.7/Makefile.in	2014-07-16 12:35:58.494194426 -0300
-@@ -406,7 +406,7 @@ EXTRA_DIST = doc/authors.xml doc/basicmo
+diff -up Clp-1.16.6/Makefile.in.orig Clp-1.16.6/Makefile.in
+--- Clp-1.16.6/Makefile.in.orig	2015-04-12 12:58:41.513642557 -0300
++++ Clp-1.16.6/Makefile.in	2015-04-12 12:59:06.943643531 -0300
+@@ -420,7 +420,7 @@ EXTRA_DIST = doc/authors.xml doc/basicmo
  ########################################################################
  pkgconfiglibdir = $(libdir)/pkgconfig
  pkgconfiglib_DATA = clp.pc $(am__append_3)
@@ -10,12 +10,12 @@ diff -up Clp-1.15.7/Makefile.in.orig Clp-1.15.7/Makefile.in
  
  ########################################################################
  #                         Maintainer Stuff                             #
-@@ -416,7 +416,7 @@ CLEANFILES =
+@@ -430,7 +430,7 @@ CLEANFILES =
  # Files that are generated and should be cleaned with make distclean
  DISTCLEANFILES = $(am__append_5) $(VPATH_DISTCLEANFILES)
- DocFiles = README AUTHORS LICENSE
+ DocFiles = README AUTHORS LICENSE 
 -DocInstallDir = $(datadir)/coin/doc/$(PACKAGE_NAME)
 +DocInstallDir = $(datadir)/doc/coin-or-$(PACKAGE_NAME)
+ COIN_HAS_DOXYGEN = @COIN_HAS_DOXYGEN_TRUE@TRUE
+ COIN_HAS_LATEX = @COIN_HAS_LATEX_TRUE@TRUE
  all: all-recursive
- 
- .SUFFIXES:
