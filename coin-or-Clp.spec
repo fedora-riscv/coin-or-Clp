@@ -4,7 +4,7 @@ Name:		coin-or-%{module}
 Group:		Applications/Engineering
 Summary:	Coin-or linear programming
 Version:	1.16.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	EPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -23,6 +23,10 @@ BuildRequires: 	zlib-devel
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
+
+# Correct crash on coin-or-OS %%check
+# This patch will be in next Clp release
+Patch1:		%{name}-string.patch
 
 %description
 Clp (Coin-or linear programming) is an open-source linear programming
@@ -51,6 +55,7 @@ This package contains the documentation for %{name}.
 %prep
 %setup -q -n %{module}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure
@@ -89,6 +94,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc %{_docdir}/%{name}/html
 
 %changelog
+* Mon Jun 22 2015 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.16.6-5
+- Correct crash on coin-or-OS check
+
 * Sat Jun 20 2015 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.16.6-4
 - Bump release.
 

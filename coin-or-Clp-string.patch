@@ -1,0 +1,12 @@
+diff -up Clp-1.16.6/src/CbcOrClpParam.cpp.orig Clp-1.16.6/src/CbcOrClpParam.cpp
+--- Clp-1.16.6/src/CbcOrClpParam.cpp.orig	2015-06-21 18:26:14.891917826 -0300
++++ Clp-1.16.6/src/CbcOrClpParam.cpp	2015-06-21 18:26:26.561918565 -0300
+@@ -48,7 +48,7 @@ static char coin_prompt[] = "Clp:";
+ #include "AbcCommon.hpp"
+ #endif
+ static bool doPrinting = true;
+-std::string afterEquals = "";
++static std::string afterEquals = "";
+ static char printArray[200];
+ #if COIN_INT_MAX==0
+ #undef COIN_INT_MAX
