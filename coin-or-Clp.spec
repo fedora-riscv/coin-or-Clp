@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Group:		Applications/Engineering
 Summary:	Coin-or linear programming
-Version:	1.16.8
+Version:	1.16.9
 Release:	1%{?dist}
 License:	EPL
 URL:		http://projects.coin-or.org/%{module}
@@ -89,6 +89,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc %{_docdir}/%{name}/html
 
 %changelog
+* Sun Oct 11 2015 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.16.9-1
+- Update to latest upstream release (#1270497)
+
 * Fri Sep 25 2015 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.16.8-1
 - Update to latest upstream release (#1257923)
 - Remove no longer needed patch to prevent coin-or-OS crash in %%check
