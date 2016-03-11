@@ -3,8 +3,8 @@
 Name:		coin-or-%{module}
 Group:		Applications/Engineering
 Summary:	Coin-or linear programming
-Version:	1.16.9
-Release:	2%{?dist}
+Version:	1.16.10
+Release:	1%{?dist}
 License:	EPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -89,6 +89,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc %{_docdir}/%{name}/html
 
 %changelog
+* Fri Mar 11 2016 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.16.10-1
+- Update to latest upstream release (#1308278)
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
