@@ -8,6 +8,7 @@ Release:	7%{?dist}
 License:	EPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
+BuildRequires:  gcc-c++
 BuildRequires:	atlas-devel
 BuildRequires:	blas-devel
 BuildRequires:	bzip2-devel
