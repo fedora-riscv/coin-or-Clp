@@ -68,9 +68,7 @@ cp -a doxydoc/html %{buildroot}%{_docdir}/%{name}
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files
 %dir %{_docdir}/%{name}
