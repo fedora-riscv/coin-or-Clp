@@ -1,7 +1,6 @@
 %global		module		Clp
 
 Name:		coin-or-%{module}
-Group:		Applications/Engineering
 Summary:	Coin-or linear programming
 Version:	1.16.10
 Release:	7%{?dist}
@@ -32,7 +31,6 @@ library, but a basic, stand-alone executable version is also available.
 
 %package	devel
 Summary:	Development files for %{name}
-Group:		Development/Libraries
 Requires:	coin-or-CoinUtils-devel
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -42,7 +40,6 @@ developing applications that use %{name}.
 
 %package	doc
 Summary:	Documentation files for %{name}
-Group:		Documentation
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
 
