@@ -1,12 +1,12 @@
 %global		module		Clp
 
 # Avoid circular dependencies on first build
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
 Version:	1.17.3
-Release:	0%{?dist}
+Release:	1%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -162,6 +162,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Thu Jun 27 2019 Jerry James <loganjerry@gmail.com> - 1.17.3-1
+- Rebuild in non-bootstrap mode
+
 * Thu Jun 27 2019 Jerry James <loganjerry@gmail.com> - 1.17.3-0
 - Update to latest upstream release (bz 1461031, 1603677)
 - Update project URL
