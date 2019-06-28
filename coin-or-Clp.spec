@@ -49,6 +49,9 @@ Patch6:		%{name}-overflow.patch
 # Fix mixed signed-unsigned comparisons
 Patch7:		%{name}-signed.patch
 
+# Do not use the AVX2 instructions
+Patch8:		%{name}-no-avx.patch
+
 %description
 Clp (Coin-or linear programming) is an open-source linear programming
 solver written in C++. It is primarily meant to be used as a callable
@@ -88,6 +91,7 @@ This package contains the documentation for %{name}.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 %if %{without bootstrap}
@@ -165,8 +169,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 - Eliminate unnecessary BRs and Rs
 - Build with Cbc, MUMPS, nauty, and suitesparse
 - Build in bootstrap mode
-- Add -bad-cast, -badcolumn, -param, -catch, -sprintf, -overflow, and -signed
-  patches
+- Add -bad-cast, -badcolumn, -param, -catch, -sprintf, -overflow, -signed,
+  and -no-avx patches
 - Eliminate rpath from the library
 - Force libtool to not defeat -Wl,--as-needed
 - Be explicit about library versions as required by latest guidelines

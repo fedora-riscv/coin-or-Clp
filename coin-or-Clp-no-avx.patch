@@ -1,0 +1,51 @@
+--- Clp-1.17.3/src/ClpPackedMatrix.cpp.orig	2019-05-02 22:31:14.000000000 -0600
++++ Clp-1.17.3/src/ClpPackedMatrix.cpp	2019-06-27 19:58:07.491096817 -0600
+@@ -6751,7 +6751,7 @@ ClpPackedMatrix3::ClpPackedMatrix3()
+ #include <intrin.h>
+ #elif defined(__arm__)
+ #include <arm_neon.h>
+-#else
++#elif defined(__x86_64__)
+ #include <immintrin.h>
+ //#include <fmaintrin.h>
+ #endif
+@@ -6778,8 +6778,9 @@ ClpPackedMatrix3::ClpPackedMatrix3(ClpSi
+   //#undef COIN_AVX2
+   //#define COIN_AVX2 8
+   //#define NO_AVX_HARDWARE
+-#ifndef COIN_AVX2
+-#define COIN_AVX2 4
++#if 1
++#define COIN_AVX2 1
++#define NO_AVX_HARDWARE
+ #else
+ #if COIN_AVX2 == 4
+ #ifndef NO_AVX_HARDWARE
+--- Clp-1.17.3/src/ClpSimplexDual.cpp.orig	2019-05-02 22:31:14.000000000 -0600
++++ Clp-1.17.3/src/ClpSimplexDual.cpp	2019-06-27 20:01:18.523941139 -0600
+@@ -3554,11 +3554,12 @@ void moveAndZero(clpTempInfo *info, int
+   }
+ }
+ #endif
++#undef COIN_AVX2
+ #ifdef _MSC_VER
+ #include <intrin.h>
+ #elif defined(__arm__)
+ #include <arm_neon.h>
+-#else
++#elif defined(__x86_64__)
+ #include <immintrin.h>
+ //#include <fmaintrin.h>
+ #endif
+--- Clp-1.17.3/src/CoinAbcHelperFunctions.cpp.orig	2019-01-06 12:43:06.000000000 -0700
++++ Clp-1.17.3/src/CoinAbcHelperFunctions.cpp	2019-06-27 19:59:50.890012555 -0600
+@@ -11,7 +11,8 @@
+ #include "CoinTypes.hpp"
+ #include "CoinFinite.hpp"
+ #include "CoinAbcCommon.hpp"
+-//#define AVX2 1
++#undef AVX2
++#define AVX2 0
+ #if AVX2 == 1
+ #define set_const_v2df(bb, b)                         \
+   {                                                   \
