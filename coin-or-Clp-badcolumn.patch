@@ -1,0 +1,11 @@
+--- Clp-1.17.1/src/ClpModel.cpp.orig	2019-03-15 09:56:51.000000000 -0600
++++ Clp-1.17.1/src/ClpModel.cpp	2019-04-01 16:40:33.283793373 -0600
+@@ -3701,7 +3701,7 @@ int ClpModel::emptyProblem(int *infeasNu
+             numberDualInfeasibilities++;
+             ;
+             sumDualInfeasibilities += fabs(objValue);
+-            returnCode |= 2;
++            returnCode |= 1;
+           }
+           status_[i] = 0;
+         }

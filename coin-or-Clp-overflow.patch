@@ -1,0 +1,103 @@
+--- Clp-1.17.3/src/ClpModel.cpp.orig	2019-06-19 09:26:15.694712302 -0600
++++ Clp-1.17.3/src/ClpModel.cpp	2019-06-19 09:49:10.677041278 -0600
+@@ -1337,7 +1337,7 @@ void ClpModel::resize(int newNumberRows,
+     if (numberRowNames < newNumberRows) {
+       rowNames_.resize(newNumberRows);
+       lengthNames_ = CoinMax(lengthNames_, 8);
+-      char name[10];
++      char name[12];
+       for (unsigned int iRow = numberRowNames; iRow < newNumberRows; iRow++) {
+         sprintf(name, "R%7.7d", iRow);
+         rowNames_[iRow] = name;
+@@ -1347,7 +1347,7 @@ void ClpModel::resize(int newNumberRows,
+     if (numberColumnNames < newNumberColumns) {
+       columnNames_.resize(newNumberColumns);
+       lengthNames_ = CoinMax(lengthNames_, 8);
+-      char name[10];
++      char name[12];
+       for (unsigned int iColumn = numberColumnNames;
+            iColumn < newNumberColumns; iColumn++) {
+         sprintf(name, "C%7.7d", iColumn);
+@@ -3426,7 +3426,7 @@ ClpModel::getRowName(int iRow) const
+   if (size > iRow) {
+     return rowNames_[iRow];
+   } else {
+-    char name[10];
++    char name[12];
+     sprintf(name, "R%7.7d", iRow);
+     std::string rowName(name);
+     return rowName;
+@@ -3462,7 +3462,7 @@ ClpModel::getColumnName(int iColumn) con
+   if (size > iColumn) {
+     return columnNames_[iColumn];
+   } else {
+-    char name[10];
++    char name[12];
+     sprintf(name, "C%7.7d", iColumn);
+     std::string columnName(name);
+     return columnName;
+@@ -3544,7 +3544,7 @@ void ClpModel::copyRowNames(const char *
+       maxLength = CoinMax(maxLength, static_cast< unsigned int >(strlen(rowNames[iRow - first])));
+     } else {
+       maxLength = CoinMax(maxLength, static_cast< unsigned int >(8));
+-      char name[10];
++      char name[12];
+       sprintf(name, "R%7.7d", iRow);
+       rowNames_[iRow] = name;
+     }
+@@ -3571,7 +3571,7 @@ void ClpModel::copyColumnNames(const cha
+       maxLength = CoinMax(maxLength, static_cast< unsigned int >(strlen(columnNames[iColumn - first])));
+     } else {
+       maxLength = CoinMax(maxLength, static_cast< unsigned int >(8));
+-      char name[10];
++      char name[12];
+       sprintf(name, "C%7.7d", iColumn);
+       columnNames_[iColumn] = name;
+     }
+@@ -3817,7 +3817,7 @@ ClpModel::rowNamesAsChar() const
+       if (rowName(iRow) != "") {
+         rowNames[iRow] = CoinStrdup(rowName(iRow).c_str());
+       } else {
+-        char name[10];
++        char name[12];
+         sprintf(name, "R%7.7d", iRow);
+         rowNames[iRow] = CoinStrdup(name);
+       }
+@@ -3833,7 +3833,7 @@ ClpModel::rowNamesAsChar() const
+       xx[n] = '\0';
+ #endif
+     }
+-    char name[10];
++    char name[12];
+     for (; iRow < numberRows_; iRow++) {
+       sprintf(name, "R%7.7d", iRow);
+       rowNames[iRow] = CoinStrdup(name);
+@@ -3856,7 +3856,7 @@ ClpModel::columnNamesAsChar() const
+       if (columnName(iColumn) != "") {
+         columnNames[iColumn] = CoinStrdup(columnName(iColumn).c_str());
+       } else {
+-        char name[10];
++        char name[12];
+         sprintf(name, "C%7.7d", iColumn);
+         columnNames[iColumn] = CoinStrdup(name);
+       }
+@@ -3872,7 +3872,7 @@ ClpModel::columnNamesAsChar() const
+       xx[n] = '\0';
+ #endif
+     }
+-    char name[10];
++    char name[12];
+     for (; iColumn < numberColumns_; iColumn++) {
+       sprintf(name, "C%7.7d", iColumn);
+       columnNames[iColumn] = CoinStrdup(name);
+--- Clp-1.17.3/src/ClpSimplexOther.cpp.orig	2019-06-19 09:35:35.100664914 -0600
++++ Clp-1.17.3/src/ClpSimplexOther.cpp	2019-06-19 09:44:47.465748162 -0600
+@@ -2276,7 +2276,7 @@ int ClpSimplexOther::parametrics(const c
+ {
+   int returnCode = -2;
+   FILE *fp = fopen(dataFile, "r");
+-  char line[200];
++  char line[400];
+   if (!fp) {
+     handler_->message(CLP_UNABLE_OPEN, messages_)
+       << dataFile << CoinMessageEol;

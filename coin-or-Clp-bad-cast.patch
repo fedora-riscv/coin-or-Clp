@@ -1,0 +1,12 @@
+diff -up Clp-1.17.1/src/ClpSolver.cpp.orig Clp-1.17.1/src/ClpSolver.cpp
+--- Clp-1.17.1/src/ClpSolver.cpp.orig	2019-02-07 14:43:52.000000000 -0700
++++ Clp-1.17.1/src/ClpSolver.cpp	2019-03-27 11:53:43.018224450 -0600
+@@ -2888,7 +2888,7 @@ clp watson.mps -\nscaling off\nprimalsim
+         case CLP_PARAM_ACTION_GUESS:
+           if (goodModels[iModel]) {
+             delete[] alternativeEnvironment;
+-            ClpSimplexOther *model2 = static_cast< ClpSimplexOther * >(models + iModel);
++            ClpSimplexOther *model2 = reinterpret_cast< ClpSimplexOther * >(models + iModel);
+             alternativeEnvironment = model2->guess(0);
+             if (alternativeEnvironment)
+               CbcOrClpEnvironmentIndex = 0;

@@ -1,28 +1,53 @@
 %global		module		Clp
 
+# Avoid circular dependencies on first build
+%bcond_without bootstrap
+
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
-Version:	1.16.10
-Release:	8%{?dist}
-License:	EPL
-URL:		http://projects.coin-or.org/%{module}
+Version:	1.17.3
+Release:	0%{?dist}
+License:	EPL-1.0
+URL:		https://github.com/coin-or/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
-BuildRequires:  gcc-c++
-BuildRequires:	atlas-devel
-BuildRequires:	blas-devel
-BuildRequires:	bzip2-devel
-BuildRequires:	coin-or-CoinUtils-devel
+BuildRequires:	coin-or-Data-Netlib
 BuildRequires:	coin-or-Osi-devel
+BuildRequires:	coin-or-Osi-doc
+BuildRequires:	gcc-c++
 BuildRequires:	doxygen
-BuildRequires:	glpk-devel
-BuildRequires:	graphviz
-BuildRequires:	lapack-devel
-BuildRequires:	pkgconfig
+BuildRequires:	MUMPS-devel
+%if %{without bootstrap}
+BuildRequires:	coin-or-Cbc-devel
+BuildRequires:	libnauty-devel
+%endif
 BuildRequires:	readline-devel
-BuildRequires: 	zlib-devel
+BuildRequires:	suitesparse-devel
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
+
+# Fix a bad static cast
+Patch1:		%{name}-bad-cast.patch
+
+# Fix for a crash in coin-or-lemon.  The code sets returnCode to 2, but does
+# not set badColumn, resulting in a write to ray[-1].  Set returnCode to 1
+# instead to avoid the issue.
+Patch2:		%{name}-badcolumn.patch
+
+# Fix a parameter which is not defined when building with Cbc support.
+Patch3:		%{name}-param.patch
+
+# Catch polymorphic errors by reference rathern than by value
+Patch4:		%{name}-catch.patch
+
+# Fix a bad sprintf that overwrites its own output
+Patch5:		%{name}-sprintf.patch
+
+# Increase buffer sizes to avoid sprintf overflow
+Patch6:		%{name}-overflow.patch
+
+# Fix mixed signed-unsigned comparisons
+Patch7:		%{name}-signed.patch
 
 %description
 Clp (Coin-or linear programming) is an open-source linear programming
@@ -31,15 +56,20 @@ library, but a basic, stand-alone executable version is also available.
 
 %package	devel
 Summary:	Development files for %{name}
-Requires:	coin-or-CoinUtils-devel
+%if %{without bootstrap}
+Requires:	coin-or-Cbc-devel%{?_isa}
+%endif
+Requires:	coin-or-Osi-devel%{?_isa}
+Requires:	readline-devel%{?_isa}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description    devel
+%description	devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %package	doc
 Summary:	Documentation files for %{name}
+Requires:	coin-or-Osi-doc
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
 
@@ -49,18 +79,53 @@ This package contains the documentation for %{name}.
 %prep
 %setup -q -n %{module}-%{version}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%if %{without bootstrap}
+%patch3 -p1
+%endif
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
-%configure
-# Kill rpaths
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags} all doxydoc
+%if %{without bootstrap}
+export CPPFLAGS="-DCOIN_HAS_CBC -DCOIN_HAS_NTY -I$PWD/src/OsiClp"
+%endif
+%configure \
+  --with-amd-incdir=%{_includedir}/suitesparse \
+  --with-amd-lib=-lamd \
+  --with-cholmod-incdir=%{_includedir}/suitesparse \
+  --with-cholmod-lib=-lcholmod \
+  --with-glpk_incdir=%{_includedir} \
+  --with-glpk-lib=-lglpk \
+  --with-mumps-incdir=%{_includedir}/MUMPS \
+  --with-mumps-lib="-ldmumps -lmpiseq" \
+%if %{with bootstrap}
+  LIBS="-lpthread"
+%else
+  LIBS="-lCbc -lnauty -lpthread"
+%endif
+
+# Get rid of undesirable hardcoded rpaths; workaround libtool reordering
+# -Wl,--as-needed after all the libraries.
+sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
+    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
+    -e 's|CC="\(g..\)"|CC="\1 -Wl,--as-needed"|' \
+    -i libtool
+
+%make_build all doxydoc
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 rm -f %{buildroot}%{_libdir}/*.la
-cp -a doxydoc/html %{buildroot}%{_docdir}/%{name}
+rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,clp_addlibs.txt}
+cp -a doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
+
+# The pkgconfig file lists transitive dependencies.  Those are necessary when
+# using static libraries, but not with shared libraries.
+sed -i 's/ -ldmumps.*//' %{buildroot}%{_libdir}/pkgconfig/clp.pc
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
@@ -68,23 +133,46 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %ldconfig_scriptlets
 
 %files
+%license LICENSE
 %dir %{_docdir}/%{name}
-%doc %{_docdir}/%{name}/AUTHORS
-%doc %{_docdir}/%{name}/clp_addlibs.txt
-%doc %{_docdir}/%{name}/LICENSE
-%doc %{_docdir}/%{name}/README
+%{_docdir}/%{name}/AUTHORS
+%{_docdir}/%{name}/README
 %{_bindir}/clp
-%{_libdir}/*.so.*
+%{_libdir}/libClp.so.1
+%{_libdir}/libClp.so.1.*
+%{_libdir}/libClpSolver.so.1
+%{_libdir}/libClpSolver.so.1.*
+%{_libdir}/libOsiClp.so.1
+%{_libdir}/libOsiClp.so.1.*
 
 %files		devel
 %{_includedir}/coin/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*
+%{_libdir}/libClp.so
+%{_libdir}/libClpSolver.so
+%{_libdir}/libOsiClp.so
+%{_libdir}/pkgconfig/clp.pc
+%{_libdir}/pkgconfig/osi-clp.pc
 
 %files		doc
-%doc %{_docdir}/%{name}/html
+%{_docdir}/%{name}/html
+%{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Thu Jun 27 2019 Jerry James <loganjerry@gmail.com> - 1.17.3-0
+- Update to latest upstream release (bz 1461031, 1603677)
+- Update project URL
+- Change License from EPL to EPL-1.0
+- Eliminate unnecessary BRs and Rs
+- Build with Cbc, MUMPS, nauty, and suitesparse
+- Build in bootstrap mode
+- Add -bad-cast, -badcolumn, -param, -catch, -sprintf, -overflow, and -signed
+  patches
+- Eliminate rpath from the library
+- Force libtool to not defeat -Wl,--as-needed
+- Be explicit about library versions as required by latest guidelines
+- Filter out unnecessary Libs values from pkgconfig files
+- Package doxygen tag file to enable cross-linking
+
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 

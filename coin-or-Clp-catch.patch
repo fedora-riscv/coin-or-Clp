@@ -1,0 +1,53 @@
+--- Clp-1.17.3/src/ClpModel.cpp.orig	2019-04-01 16:40:33.283793373 -0600
++++ Clp-1.17.3/src/ClpModel.cpp	2019-06-19 09:26:15.694712302 -0600
+@@ -2873,7 +2873,7 @@ int ClpModel::readMps(const char *fileNa
+   int status = 0;
+   try {
+     status = m.readMps(fileName, "");
+-  } catch (CoinError e) {
++  } catch (CoinError& e) {
+     e.print();
+     status = -1;
+   }
+--- Clp-1.17.3/src/ClpSolver.cpp.orig	2019-06-19 08:55:49.245584625 -0600
++++ Clp-1.17.3/src/ClpSolver.cpp	2019-06-19 09:27:25.963449066 -0600
+@@ -1294,7 +1294,7 @@ int ClpMain1(int argc, const char *argv[
+                 }
+               }
+ #endif
+-            } catch (CoinError e) {
++            } catch (CoinError& e) {
+               e.print();
+               status = -1;
+             }
+--- Clp-1.17.3/src/OsiClp/OsiClpSolverInterface.cpp.orig	2019-04-07 21:34:28.000000000 -0600
++++ Clp-1.17.3/src/OsiClp/OsiClpSolverInterface.cpp	2019-06-19 09:28:24.993388970 -0600
+@@ -5792,7 +5792,7 @@ int OsiClpSolverInterface::readLp(const
+   *m.messagesPointer() = modelPtr_->coinMessages();
+   try {
+     m.readLp(filename, epsilon);
+-  } catch (CoinError e) {
++  } catch (CoinError& e) {
+     printf("ERROR: %s::%s, %s\n",
+       e.className().c_str(), e.methodName().c_str(), e.message().c_str());
+     return -1;
+--- Clp-1.17.3/test/OsiClpSolverInterfaceTest.cpp.orig	2017-08-16 08:40:35.000000000 -0600
++++ Clp-1.17.3/test/OsiClpSolverInterfaceTest.cpp	2019-06-19 09:29:07.273629672 -0600
+@@ -143,7 +143,7 @@ OsiClpSolverInterfaceUnitTest(const std:
+         solver.setObjCoeff(0,0.0);
+         OSIUNITTEST_ADD_OUTCOME("clp", "setObjCoeff on empty model", "should throw exception", OsiUnitTest::TestOutcome::ERROR, false);
+       }
+-      catch (CoinError e) {
++      catch (CoinError& e) {
+         if (OsiUnitTest::verbosity >= 1)
+           std::cout<<"Correct throw from setObjCoeff on empty model"<<std::endl;
+       }
+@@ -158,7 +158,7 @@ OsiClpSolverInterfaceUnitTest(const std:
+         solver.setColSetBounds(index,index+2,value);
+         OSIUNITTEST_ADD_OUTCOME("clp", "setColSetBounds on cols not in model", "should throw exception", OsiUnitTest::TestOutcome::ERROR, false);
+       }
+-      catch (CoinError e) {
++      catch (CoinError& e) {
+         if (OsiUnitTest::verbosity >= 1)
+           std::cout<<"Correct throw from setObjCoeff on empty model"<<std::endl;
+       }

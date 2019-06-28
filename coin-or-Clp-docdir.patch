@@ -1,6 +1,18 @@
-diff -up Clp-1.16.6/Makefile.in.orig Clp-1.16.6/Makefile.in
---- Clp-1.16.6/Makefile.in.orig	2015-04-12 12:58:41.513642557 -0300
-+++ Clp-1.16.6/Makefile.in	2015-04-12 12:59:06.943643531 -0300
+diff -up Clp-1.17.3/configure.orig Clp-1.17.3/configure
+--- Clp-1.17.3/configure.orig	2019-06-14 15:45:20.000000000 -0600
++++ Clp-1.17.3/configure	2019-06-21 10:41:48.445343096 -0600
+@@ -32184,7 +32184,7 @@ echo "${ECHO_T}$doxysrcdir (src)" >&6
+   fi
+   # Not built, fall back to installed tag file
+   if test $doxyfound = no ; then
+-    eval doxydir="${datadir}/coin/doc/${proj}/doxydoc"
++    eval doxydir="${datadir}/doc/coin-or-${proj}"
+     # AC_MSG_NOTICE([Considering $doxydir (install)])
+     # AC_MSG_NOTICE([Subdirs: $coin_subdirs)])
+     coin_doxy_tagfiles="$coin_doxy_tagfiles $doxydir/$doxytag=$doxydir/html"
+diff -up Clp-1.17.3/Makefile.in.orig Clp-1.17.3/Makefile.in
+--- Clp-1.17.3/Makefile.in.orig	2016-02-01 21:31:08.000000000 -0700
++++ Clp-1.17.3/Makefile.in	2019-06-21 10:40:52.417258808 -0600
 @@ -420,7 +420,7 @@ EXTRA_DIST = doc/authors.xml doc/basicmo
  ########################################################################
  pkgconfiglibdir = $(libdir)/pkgconfig
