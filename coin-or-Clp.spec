@@ -1,7 +1,7 @@
 %global		module		Clp
 
 # Avoid circular dependencies on first build
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
@@ -162,7 +162,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.3-2
+* Tue Jul 30 2019 Adam Williamson <awilliam@redhat.com> - 1.17.3-2
+- Bootstrap build for mumps soname bump
+
+* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
 * Thu Jun 27 2019 Jerry James <loganjerry@gmail.com> - 1.17.3-1
