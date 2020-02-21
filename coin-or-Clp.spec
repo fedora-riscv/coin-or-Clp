@@ -1,7 +1,7 @@
 %global		module		Clp
 
 # Avoid circular dependencies on first build
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
