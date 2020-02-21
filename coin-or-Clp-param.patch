@@ -1,5 +1,6 @@
---- Clp-1.17.1/src/ClpSolver.cpp.orig	2019-03-27 11:53:43.018224450 -0600
-+++ Clp-1.17.1/src/ClpSolver.cpp	2019-04-02 20:37:12.984912142 -0600
+diff -up Clp-releases-1.17.5/Clp/src/ClpSolver.cpp.orig Clp-releases-1.17.5/Clp/src/ClpSolver.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpSolver.cpp.orig	2020-02-20 09:48:11.863261899 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpSolver.cpp	2020-02-20 09:53:29.722615016 -0700
 @@ -293,7 +293,11 @@ int ClpMain1(int argc, const char *argv[
    parameters[whichParam(CLP_PARAM_DBL_PRIMALWEIGHT, parameters)].setDoubleValue(models->infeasibilityCost());
    parameters[whichParam(CLP_PARAM_ACTION_RESTORE, parameters)].setStringValue(restoreFile);

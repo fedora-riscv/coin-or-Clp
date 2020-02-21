@@ -1,7 +1,7 @@
-diff -up Clp-1.17.1/src/ClpSolver.cpp.orig Clp-1.17.1/src/ClpSolver.cpp
---- Clp-1.17.1/src/ClpSolver.cpp.orig	2019-02-07 14:43:52.000000000 -0700
-+++ Clp-1.17.1/src/ClpSolver.cpp	2019-03-27 11:53:43.018224450 -0600
-@@ -2888,7 +2888,7 @@ clp watson.mps -\nscaling off\nprimalsim
+diff -up Clp-releases-1.17.5/Clp/src/ClpSolver.cpp.orig Clp-releases-1.17.5/Clp/src/ClpSolver.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpSolver.cpp.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpSolver.cpp	2020-02-20 09:48:11.863261899 -0700
+@@ -2890,7 +2890,7 @@ clp watson.mps -\nscaling off\nprimalsim
          case CLP_PARAM_ACTION_GUESS:
            if (goodModels[iModel]) {
              delete[] alternativeEnvironment;

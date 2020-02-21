@@ -1,14 +1,6 @@
---- Clp-1.17.3/src/ClpPackedMatrix.cpp.orig	2019-05-02 22:31:14.000000000 -0600
-+++ Clp-1.17.3/src/ClpPackedMatrix.cpp	2019-06-27 19:58:07.491096817 -0600
-@@ -6751,7 +6751,7 @@ ClpPackedMatrix3::ClpPackedMatrix3()
- #include <intrin.h>
- #elif defined(__arm__)
- #include <arm_neon.h>
--#else
-+#elif defined(__x86_64__)
- #include <immintrin.h>
- //#include <fmaintrin.h>
- #endif
+diff -up Clp-releases-1.17.5/Clp/src/ClpPackedMatrix.cpp.orig Clp-releases-1.17.5/Clp/src/ClpPackedMatrix.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpPackedMatrix.cpp.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpPackedMatrix.cpp	2020-02-20 09:58:51.057918125 -0700
 @@ -6778,8 +6778,9 @@ ClpPackedMatrix3::ClpPackedMatrix3(ClpSi
    //#undef COIN_AVX2
    //#define COIN_AVX2 8
@@ -21,24 +13,20 @@
  #else
  #if COIN_AVX2 == 4
  #ifndef NO_AVX_HARDWARE
---- Clp-1.17.3/src/ClpSimplexDual.cpp.orig	2019-05-02 22:31:14.000000000 -0600
-+++ Clp-1.17.3/src/ClpSimplexDual.cpp	2019-06-27 20:01:18.523941139 -0600
-@@ -3554,11 +3554,12 @@ void moveAndZero(clpTempInfo *info, int
+diff -up Clp-releases-1.17.5/Clp/src/ClpSimplexDual.cpp.orig Clp-releases-1.17.5/Clp/src/ClpSimplexDual.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpSimplexDual.cpp.orig	2020-02-20 09:58:51.059918089 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpSimplexDual.cpp	2020-02-20 10:00:22.752278429 -0700
+@@ -3554,6 +3554,7 @@ void moveAndZero(clpTempInfo *info, int
    }
  }
  #endif
 +#undef COIN_AVX2
  #ifdef _MSC_VER
  #include <intrin.h>
- #elif defined(__arm__)
- #include <arm_neon.h>
--#else
-+#elif defined(__x86_64__)
- #include <immintrin.h>
- //#include <fmaintrin.h>
- #endif
---- Clp-1.17.3/src/CoinAbcHelperFunctions.cpp.orig	2019-01-06 12:43:06.000000000 -0700
-+++ Clp-1.17.3/src/CoinAbcHelperFunctions.cpp	2019-06-27 19:59:50.890012555 -0600
+ #elif defined(__ARM_FEATURE_SIMD32) || defined(__ARM_NEON)
+diff -up Clp-releases-1.17.5/Clp/src/CoinAbcHelperFunctions.cpp.orig Clp-releases-1.17.5/Clp/src/CoinAbcHelperFunctions.cpp
+--- Clp-releases-1.17.5/Clp/src/CoinAbcHelperFunctions.cpp.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/src/CoinAbcHelperFunctions.cpp	2020-02-20 09:58:51.059918089 -0700
 @@ -11,7 +11,8 @@
  #include "CoinTypes.hpp"
  #include "CoinFinite.hpp"

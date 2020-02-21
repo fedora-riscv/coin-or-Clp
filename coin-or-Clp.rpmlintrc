@@ -1,0 +1,8 @@
+# THIS FILE IS FOR WHITELISTING RPMLINT ERRORS AND WARNINGS IN TASKOTRON
+# https://fedoraproject.org/wiki/Taskotron/Tasks/dist.rpmlint#Whitelisting_errors
+
+# Upstream does not give us a man page
+addFilter(r'coin-or-Clp\.[^:]+: W: no-manual-page-for-binary clp')
+
+# The documentation is in the doc subpackage
+addFilter(r'coin-or-Clp-devel\.[^:]+: W: no-documentation')

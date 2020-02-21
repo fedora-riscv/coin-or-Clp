@@ -1,7 +1,7 @@
-diff -up Clp-1.17.3/configure.orig Clp-1.17.3/configure
---- Clp-1.17.3/configure.orig	2019-06-14 15:45:20.000000000 -0600
-+++ Clp-1.17.3/configure	2019-06-21 10:41:48.445343096 -0600
-@@ -32184,7 +32184,7 @@ echo "${ECHO_T}$doxysrcdir (src)" >&6
+diff -up Clp-releases-1.17.5/Clp/configure.orig Clp-releases-1.17.5/Clp/configure
+--- Clp-releases-1.17.5/Clp/configure.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/configure	2020-02-20 09:46:50.382716225 -0700
+@@ -32230,7 +32230,7 @@ echo "${ECHO_T}$doxysrcdir (src)" >&6
    fi
    # Not built, fall back to installed tag file
    if test $doxyfound = no ; then
@@ -10,10 +10,10 @@ diff -up Clp-1.17.3/configure.orig Clp-1.17.3/configure
      # AC_MSG_NOTICE([Considering $doxydir (install)])
      # AC_MSG_NOTICE([Subdirs: $coin_subdirs)])
      coin_doxy_tagfiles="$coin_doxy_tagfiles $doxydir/$doxytag=$doxydir/html"
-diff -up Clp-1.17.3/Makefile.in.orig Clp-1.17.3/Makefile.in
---- Clp-1.17.3/Makefile.in.orig	2016-02-01 21:31:08.000000000 -0700
-+++ Clp-1.17.3/Makefile.in	2019-06-21 10:40:52.417258808 -0600
-@@ -420,7 +420,7 @@ EXTRA_DIST = doc/authors.xml doc/basicmo
+diff -up Clp-releases-1.17.5/Clp/Makefile.in.orig Clp-releases-1.17.5/Clp/Makefile.in
+--- Clp-releases-1.17.5/Clp/Makefile.in.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/Makefile.in	2020-02-20 09:46:50.398715939 -0700
+@@ -421,7 +421,7 @@ EXTRA_DIST = doc/authors.xml doc/basicmo
  ########################################################################
  pkgconfiglibdir = $(libdir)/pkgconfig
  pkgconfiglib_DATA = clp.pc $(am__append_3)
@@ -22,7 +22,7 @@ diff -up Clp-1.17.3/Makefile.in.orig Clp-1.17.3/Makefile.in
  
  ########################################################################
  #                         Maintainer Stuff                             #
-@@ -430,7 +430,7 @@ CLEANFILES =
+@@ -431,7 +431,7 @@ CLEANFILES =
  # Files that are generated and should be cleaned with make distclean
  DISTCLEANFILES = $(am__append_5) $(VPATH_DISTCLEANFILES)
  DocFiles = README AUTHORS LICENSE 

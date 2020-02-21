@@ -1,26 +1,25 @@
 %global		module		Clp
 
 # Avoid circular dependencies on first build
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
-Version:	1.17.3
-Release:	4%{?dist}
+Version:	1.17.5
+Release:	1%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
-Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
+Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
 BuildRequires:	coin-or-Data-Netlib
-BuildRequires:	coin-or-Osi-devel
 BuildRequires:	coin-or-Osi-doc
 BuildRequires:	gcc-c++
 BuildRequires:	doxygen
 BuildRequires:	MUMPS-devel
 %if %{without bootstrap}
-BuildRequires:	coin-or-Cbc-devel
-BuildRequires:	libnauty-devel
+BuildRequires:	pkgconfig(cbc)
 %endif
-BuildRequires:	readline-devel
+BuildRequires:	pkgconfig(osi)
+BuildRequires:	pkgconfig(readline)
 BuildRequires:	suitesparse-devel
 
 # Install documentation in standard rpm directory
@@ -80,7 +79,7 @@ BuildArch:	noarch
 This package contains the documentation for %{name}.
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{module}-releases-%{version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -106,10 +105,8 @@ export CPPFLAGS="-DCOIN_HAS_CBC -DCOIN_HAS_NTY -I$PWD/src/OsiClp"
   --with-glpk-lib=-lglpk \
   --with-mumps-incdir=%{_includedir}/MUMPS \
   --with-mumps-lib="-ldmumps -lmpiseq" \
-%if %{with bootstrap}
-  LIBS="-lpthread"
-%else
-  LIBS="-lCbc -lnauty -lpthread"
+%if %{without bootstrap}
+  LIBS="-lCbc"
 %endif
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -162,6 +159,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Fri Feb 21 2020 Jerry James <loganjerry@gmail.com> - 1.17.5-1
+- Version 1.17.5
+- Drop unnecessary libnauty BR
+
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 

@@ -1,5 +1,6 @@
---- Clp-1.17.3/src/ClpSimplexOther.cpp.orig	2019-01-07 12:04:36.000000000 -0700
-+++ Clp-1.17.3/src/ClpSimplexOther.cpp	2019-06-19 09:35:35.100664914 -0600
+diff -up Clp-releases-1.17.5/Clp/src/ClpSimplexOther.cpp.orig Clp-releases-1.17.5/Clp/src/ClpSimplexOther.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpSimplexOther.cpp.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpSimplexOther.cpp	2020-02-20 09:55:43.777239225 -0700
 @@ -2360,9 +2360,9 @@ int ClpSimplexOther::parametrics(const c
    if (intervalTheta >= endTheta)
      intervalTheta = 0.0;

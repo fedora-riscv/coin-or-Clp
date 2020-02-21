@@ -1,6 +1,7 @@
---- Clp-1.17.3/src/ClpModel.cpp.orig	2019-04-01 16:40:33.283793373 -0600
-+++ Clp-1.17.3/src/ClpModel.cpp	2019-06-19 09:26:15.694712302 -0600
-@@ -2873,7 +2873,7 @@ int ClpModel::readMps(const char *fileNa
+diff -up Clp-releases-1.17.5/Clp/src/ClpModel.cpp.orig Clp-releases-1.17.5/Clp/src/ClpModel.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpModel.cpp.orig	2020-02-20 09:50:46.973499354 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpModel.cpp	2020-02-20 09:54:26.138615175 -0700
+@@ -2892,7 +2892,7 @@ int ClpModel::readMps(const char *fileNa
    int status = 0;
    try {
      status = m.readMps(fileName, "");
@@ -9,8 +10,9 @@
      e.print();
      status = -1;
    }
---- Clp-1.17.3/src/ClpSolver.cpp.orig	2019-06-19 08:55:49.245584625 -0600
-+++ Clp-1.17.3/src/ClpSolver.cpp	2019-06-19 09:27:25.963449066 -0600
+diff -up Clp-releases-1.17.5/Clp/src/ClpSolver.cpp.orig Clp-releases-1.17.5/Clp/src/ClpSolver.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpSolver.cpp.orig	2020-02-20 09:53:29.722615016 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpSolver.cpp	2020-02-20 09:54:26.139615157 -0700
 @@ -1294,7 +1294,7 @@ int ClpMain1(int argc, const char *argv[
                  }
                }
@@ -20,9 +22,10 @@
                e.print();
                status = -1;
              }
---- Clp-1.17.3/src/OsiClp/OsiClpSolverInterface.cpp.orig	2019-04-07 21:34:28.000000000 -0600
-+++ Clp-1.17.3/src/OsiClp/OsiClpSolverInterface.cpp	2019-06-19 09:28:24.993388970 -0600
-@@ -5792,7 +5792,7 @@ int OsiClpSolverInterface::readLp(const
+diff -up Clp-releases-1.17.5/Clp/src/OsiClp/OsiClpSolverInterface.cpp.orig Clp-releases-1.17.5/Clp/src/OsiClp/OsiClpSolverInterface.cpp
+--- Clp-releases-1.17.5/Clp/src/OsiClp/OsiClpSolverInterface.cpp.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/src/OsiClp/OsiClpSolverInterface.cpp	2020-02-20 09:54:26.141615122 -0700
+@@ -5790,7 +5790,7 @@ int OsiClpSolverInterface::readLp(const
    *m.messagesPointer() = modelPtr_->coinMessages();
    try {
      m.readLp(filename, epsilon);
@@ -31,8 +34,9 @@
      printf("ERROR: %s::%s, %s\n",
        e.className().c_str(), e.methodName().c_str(), e.message().c_str());
      return -1;
---- Clp-1.17.3/test/OsiClpSolverInterfaceTest.cpp.orig	2017-08-16 08:40:35.000000000 -0600
-+++ Clp-1.17.3/test/OsiClpSolverInterfaceTest.cpp	2019-06-19 09:29:07.273629672 -0600
+diff -up Clp-releases-1.17.5/Clp/test/OsiClpSolverInterfaceTest.cpp.orig Clp-releases-1.17.5/Clp/test/OsiClpSolverInterfaceTest.cpp
+--- Clp-releases-1.17.5/Clp/test/OsiClpSolverInterfaceTest.cpp.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/test/OsiClpSolverInterfaceTest.cpp	2020-02-20 09:54:26.141615122 -0700
 @@ -143,7 +143,7 @@ OsiClpSolverInterfaceUnitTest(const std:
          solver.setObjCoeff(0,0.0);
          OSIUNITTEST_ADD_OUTCOME("clp", "setObjCoeff on empty model", "should throw exception", OsiUnitTest::TestOutcome::ERROR, false);

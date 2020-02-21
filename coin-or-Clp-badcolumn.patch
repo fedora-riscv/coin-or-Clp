@@ -1,6 +1,7 @@
---- Clp-1.17.1/src/ClpModel.cpp.orig	2019-03-15 09:56:51.000000000 -0600
-+++ Clp-1.17.1/src/ClpModel.cpp	2019-04-01 16:40:33.283793373 -0600
-@@ -3701,7 +3701,7 @@ int ClpModel::emptyProblem(int *infeasNu
+diff -up Clp-releases-1.17.5/Clp/src/ClpModel.cpp.orig Clp-releases-1.17.5/Clp/src/ClpModel.cpp
+--- Clp-releases-1.17.5/Clp/src/ClpModel.cpp.orig	2020-02-03 06:32:17.000000000 -0700
++++ Clp-releases-1.17.5/Clp/src/ClpModel.cpp	2020-02-20 09:50:46.973499354 -0700
+@@ -3720,7 +3720,7 @@ int ClpModel::emptyProblem(int *infeasNu
              numberDualInfeasibilities++;
              ;
              sumDualInfeasibilities += fabs(objValue);
