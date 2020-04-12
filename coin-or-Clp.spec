@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
 Version:	1.17.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -159,6 +159,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Sun Apr 12 2020 Nicolas Chauvet <kwizart@gmail.com> - 1.17.5-2
+- Rebuilt for MUMPS 5.3
+
 * Fri Feb 21 2020 Jerry James <loganjerry@gmail.com> - 1.17.5-1
 - Version 1.17.5
 - Drop unnecessary libnauty BR
