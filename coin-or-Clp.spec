@@ -1,12 +1,12 @@
 %global		module		Clp
 
 # Avoid circular dependencies on first build
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
-Version:	1.17.5
-Release:	2%{?dist}
+Version:	1.17.6
+Release:	1%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -28,28 +28,23 @@ Patch0:		%{name}-docdir.patch
 # Fix a bad static cast
 Patch1:		%{name}-bad-cast.patch
 
-# Fix for a crash in coin-or-lemon.  The code sets returnCode to 2, but does
-# not set badColumn, resulting in a write to ray[-1].  Set returnCode to 1
-# instead to avoid the issue.
-Patch2:		%{name}-badcolumn.patch
-
 # Fix a parameter which is not defined when building with Cbc support.
-Patch3:		%{name}-param.patch
+Patch2:		%{name}-param.patch
 
 # Catch polymorphic errors by reference rathern than by value
-Patch4:		%{name}-catch.patch
+Patch3:		%{name}-catch.patch
 
 # Fix a bad sprintf that overwrites its own output
-Patch5:		%{name}-sprintf.patch
+Patch4:		%{name}-sprintf.patch
 
 # Increase buffer sizes to avoid sprintf overflow
-Patch6:		%{name}-overflow.patch
+Patch5:		%{name}-overflow.patch
 
 # Fix mixed signed-unsigned comparisons
-Patch7:		%{name}-signed.patch
+Patch6:		%{name}-signed.patch
 
 # Do not use the AVX2 instructions
-Patch8:		%{name}-no-avx.patch
+Patch7:		%{name}-no-avx.patch
 
 %description
 Clp (Coin-or linear programming) is an open-source linear programming
@@ -82,15 +77,14 @@ This package contains the documentation for %{name}.
 %setup -q -n %{module}-releases-%{version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 %if %{without bootstrap}
-%patch3 -p1
+%patch2 -p1
 %endif
+%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
 
 %build
 %if %{without bootstrap}
@@ -159,6 +153,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Mon Apr 13 2020 Jerry James <loganjerry@gmail.com> - 1.17.6-1
+- Version 1.17.6
+
 * Sun Apr 12 2020 Nicolas Chauvet <kwizart@gmail.com> - 1.17.5-2
 - Rebuilt for MUMPS 5.3
 
