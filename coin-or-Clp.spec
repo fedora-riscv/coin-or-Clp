@@ -14,6 +14,7 @@ BuildRequires:	coin-or-Data-Netlib
 BuildRequires:	coin-or-Osi-doc
 BuildRequires:	gcc-c++
 BuildRequires:	doxygen
+BuildRequires:	make
 BuildRequires:	MUMPS-devel
 %if %{without bootstrap}
 BuildRequires:	pkgconfig(cbc)
