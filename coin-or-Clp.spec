@@ -1,7 +1,7 @@
 %global		module		Clp
 
 # Avoid circular dependencies on first build
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
@@ -156,6 +156,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %changelog
 * Tue Jul 20 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.17.6-4
 - Rebuild for MUMPS-5.4.0
+- Enable bootstrap
 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
