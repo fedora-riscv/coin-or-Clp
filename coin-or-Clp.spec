@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
 Version:	1.17.6
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -154,6 +154,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
