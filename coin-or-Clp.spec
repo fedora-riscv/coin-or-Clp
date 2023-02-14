@@ -1,7 +1,7 @@
 %global		module		Clp
 
 # Avoid circular dependencies on first build
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
@@ -154,6 +154,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Tue Feb 14 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 1.17.6-10~bootstrap
+- Bootstrap for riscv64.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
